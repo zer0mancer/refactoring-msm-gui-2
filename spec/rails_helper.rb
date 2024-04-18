@@ -34,6 +34,8 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  # Suppress RSpec warnings about potential false positives
+  RSpec::Expectations.configuration.on_potential_false_positives = :nothing
   
   # Shoulda matchers for association accessor specs
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
