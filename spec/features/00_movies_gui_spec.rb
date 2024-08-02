@@ -34,12 +34,19 @@ end
 
 describe "/movies" do
   it "creates a Movie when 'Create movie' form is submitted", :points => 5, hint: h("button_type") do
+    director = Director.new
+    director.name = "Scout Young"
+    director.dob = 27.years.ago
+    director.image = ""
+    director.save
+
     initial_number_of_movies = Movie.count
     test_title = "Flubber"
 
     visit "/movies"
 
     fill_in "Title", with: test_title
+    fill_in "Director ID", with: director.id
     click_on "Create movie"
     final_number_of_movies = Movie.count
     expect(final_number_of_movies).to eq(initial_number_of_movies + 1)
@@ -48,12 +55,19 @@ end
 
 describe "/movies" do
   it "saves the title when 'Create movie' form is submitted", :points => 2, hint: h("label_for_input") do
+    director = Director.new
+    director.name = "Scout Young"
+    director.dob = 27.years.ago
+    director.image = ""
+    director.save
+
     initial_number_of_movies = Movie.count
     test_title = "Flubber"
 
     visit "/movies"
 
     fill_in "Title", with: test_title
+    fill_in "Director ID", with: director.id
     click_on "Create movie"
 
     last_movie = Movie.order(created_at: :asc).last
@@ -164,6 +178,7 @@ describe "/movies/[ID]" do
     movie.title = "Flubber"
     movie.image = "https://some.test/image-#{Time.now.to_i}.jpg"
     movie.description = "Green guy soft"
+    movie.director_id = director.id
     movie.save
 
     visit "/movies/#{movie.id}"
@@ -184,6 +199,7 @@ describe "/movies/[ID]" do
     movie.title = "Flubber"
     movie.image = "https://some.test/image-#{Time.now.to_i}.jpg"
     movie.description = "Green guy soft"
+    movie.director_id = director.id
     movie.save
 
     visit "/movies/#{movie.id}"
@@ -204,6 +220,7 @@ describe "/movies/[ID]" do
     movie.title = "Flubber"
     movie.image = "https://some.test/image-#{Time.now.to_i}.jpg"
     movie.description = "Green guy soft"
+    movie.director_id = director.id
     movie.save
 
     visit "/movies/#{movie.id}"
@@ -224,6 +241,7 @@ describe "/movies/[ID]" do
     movie.title = "Flubber"
     movie.image = "https://some.test/image-#{Time.now.to_i}.jpg"
     movie.description = "Green guy soft"
+    movie.director_id = director.id
     movie.save
 
     new_image = "https://some.test/image-1.jpg"
@@ -250,6 +268,7 @@ describe "/movies/[ID]" do
     movie.title = "Flubber"
     movie.image = "https://some.test/image-#{Time.now.to_i}.jpg"
     movie.description = "Green guy soft"
+    movie.director_id = director.id
     movie.save
 
     new_image = "https://some.test/image-1.jpg"
