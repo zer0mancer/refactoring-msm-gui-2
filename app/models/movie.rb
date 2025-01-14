@@ -17,7 +17,7 @@ class Movie < ApplicationRecord
   validates(:title, uniqueness: true)
 
   has_many(:characters)
-  belongs_to(:directors)
+  belongs_to(:director)
 
   def director
     key = self.director_id
