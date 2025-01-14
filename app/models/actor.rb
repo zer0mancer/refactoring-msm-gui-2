@@ -13,6 +13,9 @@
 class Actor < ApplicationRecord
   validates(:name, presence: true)
 
+  has_many(:characters)
+  has_many(:filmography, through: :characters, source: :movie)
+
   def characters
     key = self.id
 
